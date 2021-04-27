@@ -1,0 +1,20 @@
+
+### Listar maestros
+GET http://localhost:3000/api/teachers
+
+
+### Agregar maestro
+POST http://localhost:3000/api/teachers
+Content-Type: application/json
+
+{
+    "nombre": "Abel Romero Ruiz",
+    "nombramiento": "Jefe",
+    "sexo":"M",
+    "ingreso_institucion": "2002-12-09",
+    "atiguedad": "2002-12-09",
+    "grado_max": "Licenciatura"
+}
+
+### Buscar un maestro
+GET http://localhost:3000/api/teachers/60809ca01d0bc52a6efe7a95
