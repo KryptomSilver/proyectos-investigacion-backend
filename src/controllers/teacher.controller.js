@@ -21,14 +21,14 @@ export const createTeacher = async (req, res) => {
     try {
         const newTeacher = new Teacher(req.body);
         const saveTecher = await newTeacher.save();
-        console.log(saveTecher);
-        res.json({ message: "Maestro Actualizado" });
+        res.json({ message: "Maestro Creado" });
     } catch (error) {
         res.status(500).json({
             message:
                 error.message || "Algo ocurrio mal mientras creaba el maestro",
         });
     }
+    
 };
 // Listar un maestro
 export const getTeacher = async (req, res) => {
@@ -46,7 +46,7 @@ export const getTeacher = async (req, res) => {
 export const deleteTeacher = async (req, res) => {
     try {
         const teacher = await Teacher.findByIdAndDelete(req.params.id);
-        res.json({ mensaje: `Se elimino el maestro ${teacher.id}` });
+        res.json({ message: `Se elimino el maestro` });
     } catch (error) {
         res.status(500).json({
             message:
@@ -62,7 +62,6 @@ export const updateTeacher = async (req, res) => {
             req.params.id,
             req.body
         );
-        console.log(req.body)
         res.json({ message: "Maestro Actualizado" });
     } catch (error) {
         res.status(500).json({

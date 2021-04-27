@@ -23,7 +23,7 @@ const teacherSchema = new Schema(
             required: true,
         },
         antiguedad: {
-            type: Date,
+            type: String,
             required: true,
         },
         grado_max: {
