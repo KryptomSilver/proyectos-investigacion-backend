@@ -14,7 +14,7 @@ const projectSchema = new Schema(
             required: true,
             trim: true,
         },
-        tipo_finanzamiento: {
+        tipo_financiamiento: {
             type: String,
             required: true,
             trim: true,

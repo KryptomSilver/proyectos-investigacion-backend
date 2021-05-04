@@ -16,6 +16,19 @@ export const getTeachers = async (req, res) => {
         });
     }
 };
+//Listar todos maestros
+export const getallTeachers = async (req, res) => {
+    try {
+        const teachers = await Teacher.find()
+        res.json(teachers);
+    } catch (error) {
+        res.status(500).json({
+            message:
+                error.message ||
+                "Algo ocurrio mal mientras se obtenia el maestro",
+        });
+    }
+};
 // Crear maestro
 export const createTeacher = async (req, res) => {
     try {
