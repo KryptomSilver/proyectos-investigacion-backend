@@ -3,8 +3,10 @@ import * as TeacherCtrl from "../controllers/teacher.controller";
 
 const router = Router();
 
-//obtener maestros
+//obtener maestros paginacion
 router.get("/", TeacherCtrl.getTeachers);
+//obtener todos maestros
+router.get("/all", TeacherCtrl.getallTeachers);
 //crear maestro
 router.post("/", TeacherCtrl.createTeacher);
 //obtener maestro

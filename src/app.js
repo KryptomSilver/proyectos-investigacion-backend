@@ -1,6 +1,7 @@
 import express from "express";
 import RoutesTeachers from "./routes/teachers.routes";
 import RoutesAcademicBs from "./routes/academicbs.routes";
+import RoutesProjects from "./routes/projects.routes";
 import morgan from "morgan";
 import cors from "cors";
 
@@ -30,5 +31,7 @@ app.get("/", (res, req) => {
 app.use("/api/teachers", RoutesTeachers);
 //importar rutas de la aplicación para los cuerpos académicos
 app.use("/api/academicbs", RoutesAcademicBs);
+//importar rutas de la aplicación para los maestros
+app.use("/api/projects", RoutesProjects);
 
 export default app;
