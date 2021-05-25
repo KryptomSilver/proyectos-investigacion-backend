@@ -1,13 +1,12 @@
-import { model, Schema } from "mongoose";
+import mongoose from "mongoose";
 const mongoosePaginate = require("mongoose-paginate-v2");
 
 //Tabla de proyectos
-const projectSchema = new Schema(
+const projectSchema = new mongoose.Schema(
     {
         lider: {
-            type: String,
-            required: true,
-            trim: true,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Teacher",
         },
         nom_proyecto: {
             type: String,
@@ -44,4 +43,4 @@ const projectSchema = new Schema(
 );
 //paginacion plugin
 projectSchema.plugin(mongoosePaginate);
-export default model("Project", projectSchema);
+export default mongoose.model("Project", projectSchema);

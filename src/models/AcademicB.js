@@ -22,7 +22,7 @@ const AcademicBShema = new Schema(
             type: Date,
             required: true,
         },
-        igac: {
+        lgac: {
             type: String,
             required: true,
         },

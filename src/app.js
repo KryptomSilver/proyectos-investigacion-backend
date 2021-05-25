@@ -2,6 +2,9 @@ import express from "express";
 import RoutesTeachers from "./routes/teachers.routes";
 import RoutesAcademicBs from "./routes/academicbs.routes";
 import RoutesProjects from "./routes/projects.routes";
+import RoutesUsers from "./routes/users.routes";
+import RoutesAuth from "./routes/auth.routes";
+import RoutesParticipants from "./routes/participant.routes";
 import morgan from "morgan";
 import cors from "cors";
 
@@ -33,5 +36,11 @@ app.use("/api/teachers", RoutesTeachers);
 app.use("/api/academicbs", RoutesAcademicBs);
 //importar rutas de la aplicación para los maestros
 app.use("/api/projects", RoutesProjects);
+//importar rutas de la aplicación para los maestros
+app.use("/api/users", RoutesUsers);
+//importar rutas de la aplicación para los maestros
+app.use("/api/auth", RoutesAuth);
+//importar rutas de la aplicación para los maestros
+app.use("/api/participants", RoutesAuth);
 
 export default app;

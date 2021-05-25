@@ -10,6 +10,7 @@ import config from "./config";
                 useUnifiedTopology: true,
                 useNewUrlParser: true,
                 useFindAndModify:false,
+                useCreateIndex:true,
             }
         );
         console.log("Database is connected to:", db.connection.name);
