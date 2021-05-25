@@ -1,11 +1,11 @@
 import Project from "../models/Project";
-import { getPaginationTeachers } from "../libs/getPaginationTeachers";
+import { getPagination } from "../libs/getPagination";
 
 //Listar proyectos
 export const getProjects = async (req, res) => {
     try {
         const { size, page } = req.query;
-        const { limit, offset } = getPaginationTeachers(page, size);
+        const { limit, offset } = getPagination(page, size);
         const projects = await Project.paginate({}, { offset, limit });
         res.json(projects);
     } catch (error) {
@@ -18,6 +18,11 @@ export const getProjects = async (req, res) => {
 };
 // Crear proyecto
 export const createProject = async (req, res) => {
+    // revisar si hay errores
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+        return res.status(400).json({ errores: errores.array() });
+    }
     try {
         const newProject = new Project(req.body);
         const saveProject = await newProject.save();

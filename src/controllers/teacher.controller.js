@@ -1,11 +1,12 @@
 import Teacher from "../models/Teacher";
-import { getPaginationTeachers } from "../libs/getPaginationTeachers";
+import { getPagination } from "../libs/getPagination";
+import { validationResult } from "express-validator";
 
 //Listar maestros
 export const getTeachers = async (req, res) => {
     try {
         const { size, page } = req.query;
-        const { limit, offset } = getPaginationTeachers(page, size);
+        const { limit, offset } = getPagination(page, size);
         const teachers = await Teacher.paginate({}, { offset, limit });
         res.json(teachers);
     } catch (error) {
@@ -19,7 +20,7 @@ export const getTeachers = async (req, res) => {
 //Listar todos maestros
 export const getallTeachers = async (req, res) => {
     try {
-        const teachers = await Teacher.find()
+        const teachers = await Teacher.find();
         res.json(teachers);
     } catch (error) {
         res.status(500).json({
@@ -31,6 +32,11 @@ export const getallTeachers = async (req, res) => {
 };
 // Crear maestro
 export const createTeacher = async (req, res) => {
+    // revisar si hay errores
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+        return res.status(400).json({ errores: errores.array() });
+    }
     try {
         const newTeacher = new Teacher(req.body);
         const saveTecher = await newTeacher.save();
@@ -41,7 +47,6 @@ export const createTeacher = async (req, res) => {
                 error.message || "Algo ocurrio mal mientras creaba el maestro",
         });
     }
-    
 };
 // Listar un maestro
 export const getTeacher = async (req, res) => {
@@ -57,6 +62,11 @@ export const getTeacher = async (req, res) => {
 };
 // Eliminar un maestro
 export const deleteTeacher = async (req, res) => {
+    // revisar si hay errores
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+        return res.status(400).json({ errores: errores.array() });
+    }
     try {
         const teacher = await Teacher.findByIdAndDelete(req.params.id);
         res.json({ message: `Se elimino el maestro` });
@@ -70,6 +80,11 @@ export const deleteTeacher = async (req, res) => {
 };
 // Editar un maestro
 export const updateTeacher = async (req, res) => {
+    // revisar si hay errores
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+        return res.status(400).json({ errores: errores.array() });
+    }
     try {
         const teacher = await Teacher.findByIdAndUpdate(
             req.params.id,

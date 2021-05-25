@@ -1,11 +1,11 @@
 import AcademicB from "../models/AcademicB";
-import { getPaginationTeachers } from "../libs/getPaginationTeachers";
+import { getPagination } from "../libs/getPagination";
 
 //Listar Cuerpo academico
 export const getAcademicBs = async (req, res) => {
     try {
         const { size, page } = req.query;
-        const { limit, offset } = getPaginationTeachers(page, size);
+        const { limit, offset } = getPagination(page, size);
         const academicsb = await AcademicB.paginate({}, { offset, limit });
         res.json(academicsb);
     } catch (error) {
@@ -18,6 +18,11 @@ export const getAcademicBs = async (req, res) => {
 };
 // Crear Cuerpo academico
 export const createAcademicB = async (req, res) => {
+    // revisar si hay errores
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+        return res.status(400).json({ errores: errores.array() });
+    }
     try {
         const newAcademicB = new AcademicB(req.body);
         const saveAcademicB = await newAcademicB.save();
