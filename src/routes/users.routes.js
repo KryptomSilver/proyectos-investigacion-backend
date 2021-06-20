@@ -6,7 +6,7 @@ import auth from "../middleware/auth";
 const router = Router();
 
 router.post(
-    "/",auth,
+    "/",
     [
         check("nombre", "El nombre es obligatorio").not().isEmpty(),
         check("email", "Agrega un email válido").isEmail(),

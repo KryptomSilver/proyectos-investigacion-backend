@@ -8,15 +8,7 @@ const router = Router();
 //Obtener participantes
 router.get("/", auth, ParticipantCtl.getParticipants);
 //Agregar participante
-router.post(
-    "/",
-    auth,
-    [
-        check("proyecto", "El proyecto es obligatorio").not().isEmpty(),
-        check("maestro", "El maestro es obligatorio").not().isEmpty(),
-    ],
-    ParticipantCtl.createParticipant
-);
+router.post("/", auth, ParticipantCtl.createParticipant);
 //Eliminar participante
 router.delete("/:id", auth, ParticipantCtl.deleteParticipant);
 //Actualizar participante

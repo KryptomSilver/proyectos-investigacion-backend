@@ -1,10 +1,13 @@
 
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiNjBjNTMyZTQyZTdmYmMyY2UwNzgyNDRiIn0sImlhdCI6MTYyNDIxOTE0NSwiZXhwIjoxNjI0MjI2MzQ1fQ.rTcSxYqj2sVj0O8X-bziHhNl5FXMFAIrUjnUAB4nFH4
+
+
 ### Listar maestros
-GET http://localhost:3000/api/teachers
+GET http://localhost:4000/api/teachers
 
 
 ### Agregar maestro
-POST http://localhost:3000/api/teachers
+POST http://localhost:4000/api/teachers
 Content-Type: application/json
 
 {
@@ -17,4 +20,38 @@ Content-Type: application/json
 }
 
 ### Buscar un maestro
-GET http://localhost:3000/api/teachers/60809ca01d0bc52a6efe7a95
+GET http://localhost:4000/api/teachers/60809ca01d0bc52a6efe7a95
+
+#------------------------------------------------------------------------------------------
+
+#### Iniciar Sesión
+POST http://localhost:4000/api/auth
+Content-Type: application/json
+
+{
+    "email": "abel@gmail.com",
+    "password": "123456"
+}
+### Usuario obtener
+GET  http://localhost:4000/api/auth
+Authorization: {{token}}
+
+#------------------------------------------------------------------------------------------
+
+### Listar carreras
+GET http://localhost:4000/api/career
+
+
+### Agregar carrera
+POST http://localhost:4000/api/careers
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "nombre": "Ingeneria"
+}
+
+### Buscar un maestro
+GET http://localhost:4000/api/teachers/60809ca01d0bc52a6efe7a95
+
+#------------------------------------------------------------------------------------------

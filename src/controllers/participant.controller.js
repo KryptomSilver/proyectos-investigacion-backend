@@ -53,12 +53,12 @@ export const createParticipant = async (req, res) => {
         const { proyecto, maestro } = req.body;
         // revisar el ID de proyecto
         proyecto = await Project.findById(proyecto);
-        // revisar el ID de maestro
-        teacher = await Teacher.findById(maestro);
         //Comprobar si existe el proyecto
         if (!proyecto) {
             return res.status(404).json({ message: "Proyecto no valido" });
         }
+        // revisar el ID de maestro
+        teacher = await Teacher.findById(maestro);
         //Comprobar si existe el maestro
         if (!teacher) {
             return res.status(404).json({ message: "Maestro no valido" });

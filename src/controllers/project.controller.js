@@ -1,5 +1,6 @@
 import Project from "../models/Project";
 import { getPagination } from "../libs/getPagination";
+import { validationResult } from "express-validator";
 
 //Listar proyectos
 export const getProjects = async (req, res) => {
