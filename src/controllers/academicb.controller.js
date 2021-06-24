@@ -1,5 +1,6 @@
 import AcademicB from "../models/AcademicB";
 import { getPagination } from "../libs/getPagination";
+import { validationResult } from "express-validator";
 
 //Listar Cuerpo academico
 export const getAcademicBs = async (req, res) => {
@@ -7,12 +8,10 @@ export const getAcademicBs = async (req, res) => {
         const { size, page } = req.query;
         const { limit, offset } = getPagination(page, size);
         const academicsb = await AcademicB.paginate({}, { offset, limit });
-        res.json(academicsb);
+        res.status(200).json(academicsb);
     } catch (error) {
         res.status(500).json({
-            message:
-                error.message ||
-                "Algo ocurrio mal mientras se obtenia el cuerpo académico",
+            message: error.message || "Algo salió mal...",
         });
     }
 };
@@ -26,54 +25,77 @@ export const createAcademicB = async (req, res) => {
     try {
         const newAcademicB = new AcademicB(req.body);
         const saveAcademicB = await newAcademicB.save();
-        res.json({ message: "Cuerpo Académico Creado" });
+        res.status(201).json({ message: "Cuerpo Académico Creado" });
     } catch (error) {
         res.status(500).json({
-            message:
-                error.message ||
-                "Algo ocurrio mal mientras creaba el cuerpo académico",
+            message: error.message || "Algo salió mal...",
         });
     }
 };
 // Listar un Cuerpo academico
 export const getAcademicB = async (req, res) => {
     try {
+        //Verificar si el id es valido
+        if (req.params.id.length > 24 || req.params.id.length < 24) {
+            return res.status(400).json({ message: "El id no es valido" });
+        }
         const academicb = await AcademicB.findById(req.params.id);
-        res.json(academicb);
+        //Comprobar si existe el proyecto
+        if (!academicb) {
+            return res
+                .status(404)
+                .json({ message: "No se encuentra el cuerpo académico" });
+        }
+        res.status(200).json(academicb);
     } catch (error) {
         res.status(500).json({
-            message:
-                error.message ||
-                "Algo ocurrio mal mientras listaba el cuerpo académico",
+            message: error.message || "Algo salió mal...",
         });
     }
 };
 // Eliminar un Cuerpo academico
 export const deleteAcademicB = async (req, res) => {
     try {
+        //Verificar si el id es valido
+        if (req.params.id.length > 24 || req.params.id.length < 24) {
+            return res.status(400).json({ message: "El id no es valido" });
+        }
         const academicb = await AcademicB.findByIdAndDelete(req.params.id);
-        res.json({ message: `Se elimino el cuerpo académico` });
+        //Comprobar si existe el cuerpo académico
+        if (!academicb) {
+            return res
+                .status(404)
+                .json({ message: "No se encuentra el cuerpo académico" });
+        }
+        res.status(200).json({ message: `Se elimino el cuerpo académico` });
     } catch (error) {
         res.status(500).json({
-            message:
-                error.message ||
-                "Algo ocurrio mal mientras se eliminaba el cuerpo académico",
+            message: error.message || "Algo salió mal...",
         });
     }
 };
 // Editar un Cuerpo academico
 export const updateAcademicB = async (req, res) => {
     try {
-        const academicb = await AcademicB.findByIdAndUpdate(
+        //Verificar si el id es valido
+        if (req.params.id.length > 24 || req.params.id.length < 24) {
+            return res.status(400).json({ message: "El id no es valido" });
+        }
+        const academicb = await AcademicB.findByIdAndDelete(req.params.id);
+        //Comprobar si existe el cuerpo académico
+        if (!academicb) {
+            return res
+                .status(404)
+                .json({ message: "No se encuentra el cuerpo académico" });
+        }
+        const academicbNew = await AcademicB.findByIdAndUpdate(
             req.params.id,
             req.body
         );
-        res.json({ message: "Cuerpo Académico Actualizado" });
+        res.status(200).json({ message: "Cuerpo Académico Actualizado" });
     } catch (error) {
         res.status(500).json({
-            message:
-                error.message ||
-                "Algo ocurrio mal mientras se editaba el cuerpo académico",
+            message: error.message || "Algo salió mal...",
         });
     }
 };
