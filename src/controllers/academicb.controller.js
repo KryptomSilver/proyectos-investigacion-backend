@@ -76,12 +76,13 @@ export const deleteAcademicB = async (req, res) => {
 };
 // Editar un Cuerpo academico
 export const updateAcademicB = async (req, res) => {
+    
     try {
         //Verificar si el id es valido
         if (req.params.id.length > 24 || req.params.id.length < 24) {
             return res.status(400).json({ message: "El id no es valido" });
         }
-        const academicb = await AcademicB.findByIdAndDelete(req.params.id);
+        const academicb = await AcademicB.findById(req.params.id);
         //Comprobar si existe el cuerpo académico
         if (!academicb) {
             return res
